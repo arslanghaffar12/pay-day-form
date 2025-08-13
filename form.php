@@ -183,7 +183,7 @@
         </form>
     </div>
 
-    <form id="loanForm" method="POST" action="submit.php">
+    <form id="loanForm" method="POST" action="">
 
         <!-- Step 0 -->
         <div class="form-section">

