@@ -8,13 +8,21 @@ include 'includes/options.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HANFINCAL - Loan Application</title>
+    <title>Mani - Loan Application</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
         /* Add all the form styles from your PHP form here */
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f7f9fc;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
         }
 
         .loan-form-container {
@@ -162,7 +170,190 @@ include 'includes/options.php';
             align-items: center;
             font-size: 28px;
         }
+  header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #ddd;
+        }
 
+         nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #000;
+        }
+
+        nav a:hover {
+            color: #007f5f;
+        }
+
+        /* Main Disclaimer Section */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Social Section Above Footer */
+        .footer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 60px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .footer-header img {
+            height: 50px;
+        }
+
+        .social-icons a {
+            margin-left: 10px;
+            font-size: 18px;
+            color: #007f5f;
+            background-color: #f0f0f0;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 6px;
+            border: 1px solid #cce5dc;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: #d9f2e6;
+        }
+
+        /* Footer */
+
+        .site-footer {
+            margin-top: auto;
+        }
+
+        .footer-links {
+            background-color: white;
+            text-align: center;
+            padding: 30px 15px 10px;
+        }
+
+        .footer-links a {
+            margin: 0 20px;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            background-color: #258da3;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 40px 20px;
+            flex-direction: column;
+        }
+
+        /* Modal content box */
+        .modal-content {
+            background-color: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 10px;
+            padding: 30px;
+            color: #000;
+            font-size: 16px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* Modal title */
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Close button OUTSIDE and centered at bottom */
+        .modal-close {
+            font-size: 24px;
+            color: white;
+            background-color: #d9534f;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .container {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    font-size: 16px;
+    line-height: 1.8;
+    border-radius: 4px;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+.container a {
+    text-decoration: underline;
+    color: black;
+    font-weight: bold;
+}
+
+
+        header img {
+            height: 40px;
+        }
         /* Response message styling */
         #responseMessage {
             text-align: center;
@@ -170,22 +361,20 @@ include 'includes/options.php';
             color: red;
             max-width: 80%;
         }
+        .btnSubmit{
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
 
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <img src="logo.png" alt="Logo" />
-                <!-- <span><span class="highlight">MANI</span>LOAN</span> -->
-            </div>
-            <nav class="nav-links">
-                <a href="#" id="openRatesModal">Rates & Fees</a>
-                <a href="#" id="openFaqModal">FAQs</a>
-            </nav>
-        </div>
+  <header>
+        <a href="http://maniloans.online/leads/form.php"><img src="logo.png" alt="Logo"></a> 
+        <nav>
+            <a href="#" id="openRatesModal">Rates & Fees</a>
+            <a href="#" id="openFaqModal">FAQs</a>
+        </nav>
     </header>
 
     <div class="loan-form-container">
@@ -215,7 +404,7 @@ include 'includes/options.php';
             </form>
         </div>
 
-        <form id="loanForm" method="POST" action="">
+        <form id="loanForm" method="POST" action="submit.php">
 
             <!-- Step 0 -->
             <div class="form-section">
@@ -428,7 +617,7 @@ include 'includes/options.php';
             </div>
 
             <div class="button-wrapper">
-            <button type="submit">Submit Application</button>
+            <button class="btnSubmit" type="submit" style>Submit Application</button>
             </div>
         </form>
     </div>
@@ -440,7 +629,7 @@ include 'includes/options.php';
             <a href="disclaimer.html">DISCLAIMER</a>
         </div>
         <div class="copyright">
-            © Copyright 2025 HANFINCAL
+            © Copyright 2025 Maniloan
         </div>
     </footer>
 
@@ -449,7 +638,7 @@ include 'includes/options.php';
         <div class="modal-content">
             <h2>Rates & Fee</h2>
             <p style="font-family: Inter; font-size: 18px; font-weight:400;line-height: 130%; margin-bottom: 13px;">
-                <strong>Hanfincal.com</strong> provides free-of-charge service to help borrowers like you connect with
+                <strong>maniloans.online</strong> provides free-of-charge service to help borrowers like you connect with
                 reliable lenders to solve your financial needs. We do not review, approve or make any decisions related
                 to your loan requests or approvals, you have to work with your lenders regarding rates, APR, lending
                 policy, fees or any other rules. Each state may have different local regulations to proceed with your
@@ -470,7 +659,7 @@ include 'includes/options.php';
                 know before entering into a loan contract with the lender.</p>
 
             <p style="font-family: Inter; font-size: 18px; font-weight:400;line-height: 130%; margin-bottom: 13px;">
-                <strong>Hanfincal.com</strong>is a free-of-charge platform which collects your personal details to
+                <strong>maniloans.online</strong>is a free-of-charge platform which collects your personal details to
                 submit for the lenders to review your loan requests. We do not relate to the reviewing process or
                 address your loan-related questions, please contact your financial providers directly to clarify all the
                 information. We try our best to connect you with the most suitable lender, however the approval decision
@@ -496,8 +685,8 @@ include 'includes/options.php';
                 style="font-family: Days One;font-size: 30px; font-weight: 400; font-style: normal;line-height: normal;margin-bottom: 32px;">
                 Frequently Asked Questions</h2>
 
-            <p style="margin: 20px 0px;"><strong>1. What is Trusted Online Loans?</strong></p>
-            <p><strong>Trusted Online Loans</strong> is a cash advance and personal loan online referral service on our
+            <p style="margin: 20px 0px;"><strong>1. What is Mani  Online Loans?</strong></p>
+            <p><strong>Mani  Online Loans</strong> is a cash advance and personal loan online referral service on our
                 website.
 
                 If a customer is looking for a cash advance or personal loan online, we help connect them with a
@@ -507,7 +696,7 @@ include 'includes/options.php';
                 loan. The information that they need in order to make cash advance or personal loan decisions about each
                 customer includes name, address, home and work phone numbers, and email address. They also need a
                 customer's birth date and social security number to comply with the US Patriot Act. The operator of this
-                website can be reached by mail at Trusted Online Loans, 2803 Philadelphia Pike, Suite B #1020, Claymont,
+                website can be reached by mail at Mani  Online Loans, 2803 Philadelphia Pike, Suite B #1020, Claymont,
                 DE 19703, United States or by email. Customers can contact us if they want to discontinue using our loan
                 referral service, or to change their communication preferences. Any questions about cash advance or
                 personal loan amounts should be directed to the company from which a customer obtained his or her cash
@@ -551,10 +740,7 @@ include 'includes/options.php';
             </p>
             <p>Please see the diagram below for instructions on how to find the information from your check book.
                 Alternatively please call your bank for more information.</p>
-            <div style="text-align: center;">
-                <img src="https://loan.hanfincal.com/static/media/img1.22da9ce5.png" alt="Routing info example"
-                    style="max-width:100%; height:auto;object-fit: cover;vertical-align: bottom; transition: all 0.5s ease;">
-            </div>
+         
 
             <p style="margin: 20px 0px;"><strong>8. What Happens If I Do Not Pay (Implications Of Non-Payment)?</strong>
             </p>
@@ -564,12 +750,12 @@ include 'includes/options.php';
                 applying the proportionate amount of the finance charge to the unpaid loan amount. Review the late
                 payment policy detailed in the loan documents provided to you by your lender and/or lending partner
                 before signing your e-signature, and thereby agreeing to the loan terms.</p>
-            <p><strong>No-Payment:</strong>Trusted Online Loans does not enforce payment. If you do not pay, your lender
+            <p><strong>No-Payment:</strong>Mani  Online Loans does not enforce payment. If you do not pay, your lender
                 and/or lending partner may take legal action against you. Additional fees may apply to you in the event
                 that you are unable to repay your loan. Information regarding your payment history, delinquency or
                 defaults on the account may be reported to a third party consumer reporting agency and may impact your
                 credit rating.</p>
-            <p><strong>Loan Renewals:</strong>Trusted Online Loans will not provide a renewal for you. Your lender
+            <p><strong>Loan Renewals:</strong>Mani  Online Loans will not provide a renewal for you. Your lender
                 and/or lending partner has renewal policies which will vary. With every extension or renewal, a new
                 finance charge ("Extension Fee") may be assessed by the lender and/or lending partner, and the
                 re-payment date may be extended until the borrower's next pay date. The finance charges can be
@@ -594,7 +780,7 @@ include 'includes/options.php';
             <p>Qualified loan amounts can vary and are based on personal eligibility. Approved loan amounts can range between $100 to $5,000.</p>
 
             <p style="margin: 20px 0px;"><strong>11. What is the cost?</strong></p>
-            <p>There is no cost to use Hanfincal.com. The fees of the loan will vary depending upon the amount and the lender. The lender will inform you of the fees for the loan which may vary depending on the lender.</p>
+            <p>There is no cost to use maniloans.online. The fees of the loan will vary depending upon the amount and the lender. The lender will inform you of the fees for the loan which may vary depending on the lender.</p>
             
             <p style="margin: 20px 0px;"><strong>12. Loan Renewal Policies</strong></p>
             <p>Loan renewal options are not always available. It is therefore advisable to clarify whether the option is available with your lender. Be sure to carefully peruse the renewal policy presented in the agreement before you sign the documents.</p>
@@ -603,7 +789,7 @@ include 'includes/options.php';
             <p>If you borrow $2,500 over a term of 1 year with an APR of 10% and a fee of 3%, you will pay $219,79 each month. The total amount payable will be $2,637, with a total interest of $137,48.</p>
 
             <p style="margin: 20px 0px;"><strong>14. Collection Practices</strong></p>
-            <p>Trusted Online Loans is not a lender. As such, we are not involved in any debt collection practices and cannot make you aware of any of them. Your lender will specify their collection practices in your loan agreement. If you have any questions regarding the issue, please, address them to your lender. For more information visit our page for Responsible Lending. Hanfincal.com itself isn't involved in debt collection.</p>
+            <p>Mani  Online Loans is not a lender. As such, we are not involved in any debt collection practices and cannot make you aware of any of them. Your lender will specify their collection practices in your loan agreement. If you have any questions regarding the issue, please, address them to your lender. For more information visit our page for Responsible Lending. maniloans.online itself isn't involved in debt collection.</p>
         </div>
 
         <!-- Close Button (bottom center) -->
